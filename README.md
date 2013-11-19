@@ -1,29 +1,56 @@
 # Cereal
 
-TODO: Write a gem description
+Serializers without the verbose controllers, or crazy templates
 
-## Installation
+I've always wondered why more people don't fall into Rail's responds_with and use of serializable_hash method. So here's my concept of a simple class that should help with that and not interfere with anything else.
 
-Add this line to your application's Gemfile:
+The concept is that you include your serializer into your model and include Cereal into your serializer.
 
-    gem 'cereal'
+``` ruby
+class User < ActiveRecord::Base
 
-And then execute:
+  include UserSerializer
 
-    $ bundle
+end
 
-Or install it yourself as:
+```
 
-    $ gem install cereal
+Your serialiser might look like this..
 
-## Usage
 
-TODO: Write usage instructions here
+``` ruby
+module UserSerializer
 
-## Contributing
+  include Cereal
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+  def defaults
+    {
+      id: id,
+      updated_at: updated_at
+    }
+  end
+
+  def account_details
+    {
+      email: email,
+      created_at: created_at,
+      updated_at: updated_at
+    }
+  end
+
+end
+
+```
+
+This allows you to have a very Rails like controller but ask for something else in Serialisation..
+
+``` ruby
+class AccountsController < APIController
+
+  def create
+    @user = User.create(user_params)
+    respond_with @user, account_details: true
+  end
+
+end
+```
