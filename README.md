@@ -42,7 +42,7 @@ end
 
 ```
 
-This allows you to have a very Rails like controller but ask for something else in Serialisation..
+This allows you to have a very Rails like controller but ask for something else in Serialization..
 
 ``` ruby
 class AccountsController < APIController
