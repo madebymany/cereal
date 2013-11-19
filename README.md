@@ -1,4 +1,4 @@
-# Cereal
+# Cereal [![Build Status](https://travis-ci.org/madebymany/cereal.png?branch=master)](https://travis-ci.org/madebymany/cereal/)
 
 Serializers without the verbose controllers, or crazy templates
 
