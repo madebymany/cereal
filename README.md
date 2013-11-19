@@ -49,7 +49,7 @@ class AccountsController < APIController
 
   def create
     @user = User.create(user_params)
-    respond_with @user, account_details: true
+    respond_with @user, with: [:auth_details, :account_details]
   end
 
 end
